@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.2 (Python 3.7.8 on win32)" generated="20210316 13:02:40.714" rpa="false">
+<suite id="s1" name="TestAPI" source="C:\Users\matheus.kovaleski\PycharmProjects\robotPage\API\TestAPI.robot">
+<kw name="conectar a API" library="base" type="setup">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>API</arg>
+<arg>${URL_API}</arg>
+</arguments>
+<msg timestamp="20210316 13:02:40.917" level="INFO">Creating Session using : alias=API, url=http://5d9cc58566d00400145c9ed4.mockapi.io/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210316 13:02:40.917" endtime="20210316 13:02:40.917"></status>
+</kw>
+<status status="PASS" starttime="20210316 13:02:40.917" endtime="20210316 13:02:40.917"></status>
+</kw>
+<test id="s1-t1" name="Buscar cart">
+<kw name="busca shopping_card" library="base">
+<kw name="Get On Session" library="RequestsLibrary">
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<arguments>
+<arg>API</arg>
+<arg>shopping_cart</arg>
+</arguments>
+<assign>
+<var>${resposta}</var>
+</assign>
+<msg timestamp="20210316 13:02:41.315" level="INFO">GET Request : url=http://5d9cc58566d00400145c9ed4.mockapi.io//shopping_cart 
+ path_url=//shopping_cart 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20210316 13:02:41.315" level="INFO">GET Response : url=http://5d9cc58566d00400145c9ed4.mockapi.io//shopping_cart 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type,Cache-Control,access_token', 'Content-Type': 'application/json', 'Content-Length': '169', 'Etag': '"1535434180"', 'Vary': 'Accept-Encoding', 'Date': 'Tue, 16 Mar 2021 16:02:59 GMT', 'Via': '1.1 vegur'} 
+ body={"shopping_cart":1,"sku":["demo_2","demo_1","demo_7"],"color":["Black","Orange","Yellow"],"size":["S","S","S"],"price":["27.00","16.51","16.40"],"total_shipping":"2.00"} 
+ </msg>
+<msg timestamp="20210316 13:02:41.315" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210316 13:02:40.917" endtime="20210316 13:02:41.315"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${resposta}</arg>
+</arguments>
+<msg timestamp="20210316 13:02:41.315" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210316 13:02:41.315" endtime="20210316 13:02:41.315"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resposta.text}</arg>
+</arguments>
+<msg timestamp="20210316 13:02:41.315" level="INFO">{"shopping_cart":1,"sku":["demo_2","demo_1","demo_7"],"color":["Black","Orange","Yellow"],"size":["S","S","S"],"price":["27.00","16.51","16.40"],"total_shipping":"2.00"}</msg>
+<status status="PASS" starttime="20210316 13:02:41.315" endtime="20210316 13:02:41.315"></status>
+</kw>
+<status status="PASS" starttime="20210316 13:02:40.917" endtime="20210316 13:02:41.315"></status>
+</kw>
+<kw name="conferir code status" library="base">
+<arguments>
+<arg>200</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resposta.status_code}</arg>
+<arg>${status_code}</arg>
+</arguments>
+<msg timestamp="20210316 13:02:41.315" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210316 13:02:41.315" endtime="20210316 13:02:41.315"></status>
+</kw>
+<status status="PASS" starttime="20210316 13:02:41.315" endtime="20210316 13:02:41.315"></status>
+</kw>
+<kw name="conferir produtos" library="base">
+<kw name="Dictionary Should Contain Item" library="Collections">
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<arguments>
+<arg>${resposta.json()}</arg>
+<arg>shopping_cart</arg>
+<arg>1</arg>
+</arguments>
+<status status="PASS" starttime="20210316 13:02:41.315" endtime="20210316 13:02:41.315"></status>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<arguments>
+<arg>${resposta.json()}</arg>
+<arg>sku</arg>
+<arg>['demo_2', 'demo_1', 'demo_7']</arg>
+</arguments>
+<status status="PASS" starttime="20210316 13:02:41.315" endtime="20210316 13:02:41.315"></status>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<arguments>
+<arg>${resposta.json()}</arg>
+<arg>color</arg>
+<arg>['Black', 'Orange', 'Yellow']</arg>
+</arguments>
+<status status="PASS" starttime="20210316 13:02:41.315" endtime="20210316 13:02:41.315"></status>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<arguments>
+<arg>${resposta.json()}</arg>
+<arg>size</arg>
+<arg>['S', 'S', 'S']</arg>
+</arguments>
+<status status="PASS" starttime="20210316 13:02:41.315" endtime="20210316 13:02:41.315"></status>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<arguments>
+<arg>${resposta.json()}</arg>
+<arg>price</arg>
+<arg>['27.00', '16.51', '16.40']</arg>
+</arguments>
+<status status="PASS" starttime="20210316 13:02:41.315" endtime="20210316 13:02:41.315"></status>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<arguments>
+<arg>${resposta.json()}</arg>
+<arg>total_shipping</arg>
+<arg>2.00</arg>
+</arguments>
+<status status="PASS" starttime="20210316 13:02:41.315" endtime="20210316 13:02:41.315"></status>
+</kw>
+<status status="PASS" starttime="20210316 13:02:41.315" endtime="20210316 13:02:41.315"></status>
+</kw>
+<status status="PASS" starttime="20210316 13:02:40.917" endtime="20210316 13:02:41.315" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20210316 13:02:40.714" endtime="20210316 13:02:41.315"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="TestAPI">TestAPI</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
